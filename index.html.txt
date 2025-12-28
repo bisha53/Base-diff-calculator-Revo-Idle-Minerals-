@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VP Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+    }
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      width: 50%;
+    }
+    td, th {
+      border: 1px solid #ccc;
+      padding: 8px 12px;
+      text-align: center;
+    }
+    input {
+      width: 80px;
+      padding: 4px;
+      text-align: center;
+    }
+    button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #output {
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>VP Calculator</h1>
+
+  <table>
+    <tr>
+      <th>Current base</th>
+      <th>Next base</th>
+      <th>Mineral level</th>
+    </tr>
+    <tr>
+      <td><input type="number" id="currentBase" value="2"></td>
+      <td><input type="number" id="nextBase" value="3"></td>
+      <td><input type="number" id="mineralLevel" value="5"></td>
+    </tr>
+  </table>
+
+  <button onclick="calculateVP()">Calculate VP</button>
+
+  <div id="output">VP (before multipliers): </div>
+
+  <script>
+    function calculateVP() {
+      const a = Number(document.getElementById('currentBase').value);
+      const b = Number(document.getElementById('nextBase').value);
+      const n = Number(document.getElementById('mineralLevel').value);
+
+      let vp = Math.pow(b, n) - Math.pow(a, n);
+
+      // Format VP: switch to scientific notation if > 10 million
+      let formattedVP = vp;
+      if (vp >= 10000000) {
+        formattedVP = (vp / 1e7).toFixed(2) + 'e7';
+      }
+
+      document.getElementById('output').innerText = `VP (before multipliers): ${formattedVP}`;
+    }
+  </script>
+</body>
+</html>
