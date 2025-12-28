@@ -17,7 +17,7 @@
     table {
       margin: 20px auto;
       border-collapse: collapse;
-      width: 50%;
+      width: 60%;
     }
     td, th {
       border: 1px solid #ccc;
@@ -62,25 +62,26 @@
 
   <button onclick="calculateVP()">Calculate VP</button>
 
-  <div id="output">N1 Level: <br>VP (before multipliers): </div>
+  <div id="output"></div>
 
   <script>
     function calculateVP() {
-      const a = Number(document.getElementById('currentBase').value);
-      const b = Number(document.getElementById('n1Level').value);
-      const n = Number(document.getElementById('mineralLevel').value);
+      const currentBase = Number(document.getElementById('currentBase').value);
+      const n1LevelInput = Number(document.getElementById('n1Level').value);
+      const mineralLevel = Number(document.getElementById('mineralLevel').value);
 
-      // Calculate N1 Level value
-      const n1LevelValue = (a / b) * (b + 1);
+      // Calculate N1 Level
+      const newN1Level = (currentBase / n1LevelInput) * (n1LevelInput + 1);
 
       // Calculate VP
-      const vp = Math.pow(n1LevelValue, n);
+      const vp = Math.pow(newN1Level, mineralLevel);
 
       // Format VP in scientific notation
       const formattedVP = vp.toExponential(2);
 
+      // Show output
       document.getElementById('output').innerHTML = 
-        `N1 Level: ${n1LevelValue.toFixed(2)}<br>VP (before multipliers): ${formattedVP}`;
+        `N1 Level: ${newN1Level.toFixed(2)}<br>VP (before multipliers): ${formattedVP}`;
     }
   </script>
 </body>
