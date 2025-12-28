@@ -69,7 +69,7 @@
     </tr>
     <tr>
       <td><input type="number" id="currentBase" value="3"></td>
-      <td><input type="number" id="n1Level" value="4"></td>
+      <td><input type="number" id="n1Level" value="1"></td>
       <td><input type="number" id="mineralLevel" value="1"></td>
     </tr>
   </table>
@@ -83,20 +83,20 @@
   <script>
     function calculateVP() {
       const currentBase = Number(document.getElementById('currentBase').value);
-      const level = Number(document.getElementById('n1Level').value);
+      const n1Level = Number(document.getElementById('n1Level').value);
       const mineralLevel = Number(document.getElementById('mineralLevel').value);
 
-      if (level === 0) {
-        document.getElementById('output').innerHTML = 'Next Base: undefined<br>VP (before multipliers): 0';
-        return;
-      }
+      const baseIncrease = currentBase + n1Level;
+      const nextBase = baseIncrease; 
+      const multiplier = nextBase / baseIncrease;
 
-      const nextBase = (currentBase / level) * (level + 1);
       const vp = Math.pow(nextBase, mineralLevel);
       const formattedVP = vp.toExponential(2);
 
-      document.getElementById('output').innerHTML = 
-        `Next Base: ${nextBase.toFixed(2)}<br>VP (before multipliers): ${formattedVP}`;
+      document.getElementById('output').innerHTML =
+        `Next Base: ${nextBase.toFixed(2)}<br>` +
+        `Multiplier: ${multiplier.toFixed(2)}<br>` +
+        `VP (before multipliers): ${formattedVP}`;
     }
   </script>
 </body>
