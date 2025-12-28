@@ -62,8 +62,8 @@
       <th>Mineral Level</th>
     </tr>
     <tr>
-      <td><input type="number" id="currentBase" value="20" min="3"></td>
-      <td><input type="number" id="n1Level" value="7" min="0"></td>
+      <td><input type="number" id="currentBase" value="3" min="1"></td>
+      <td><input type="number" id="n1Level" value="0" min="0"></td>
       <td><input type="number" id="mineralLevel" value="1" min="0"></td>
     </tr>
   </table>
@@ -82,7 +82,7 @@
     }
 
     function calculateVP() {
-      const currentBase = Math.max(Number(document.getElementById('currentBase').value), 3);
+      const currentBase = Math.max(Number(document.getElementById('currentBase').value), 1);
       const n1Level = Math.max(Number(document.getElementById('n1Level').value), 0);
       const mineralLevel = Math.max(Number(document.getElementById('mineralLevel').value), 0);
 
