@@ -69,8 +69,14 @@
       const a = Number(document.getElementById('currentBase').value);
       const b = Number(document.getElementById('n1Level').value);
       const n = Number(document.getElementById('mineralLevel').value);
+
+      // Calculate new base
       const newBase = (a / b) * (b + 1);
+
+      // Calculate VP
       const vp = Math.pow(newBase, n);
+
+      // Format VP in scientific notation
       const formattedVP = vp.toExponential(2);
 
       document.getElementById('output').innerHTML = 
