@@ -70,13 +70,8 @@
       const b = Number(document.getElementById('nextBase').value);
       const n = Number(document.getElementById('mineralLevel').value);
 
-      let vp = Math.pow(b, n) - Math.pow(a, n);
-
-      // Format VP: switch to scientific notation if > 10 million
-      let formattedVP = vp;
-      if (vp >= 10000000) {
-        formattedVP = (vp / 1e7).toFixed(2) + 'e7';
-      }
+      let vp = Math.pow(b, n) - Math.pow(a, n)
+      let formattedVP = vp.toExponential(2);
 
       document.getElementById('output').innerText = `VP (before multipliers): ${formattedVP}`;
     }
