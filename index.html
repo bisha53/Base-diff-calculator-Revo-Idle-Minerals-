@@ -73,9 +73,9 @@
   <div class="footer">bisha53</div>
 
   <script>
-    function formatVP(vp) {
-      if (vp >= 1e9) return vp.toExponential(2);
-      return vp.toLocaleString(undefined, {maximumFractionDigits: 2});
+    function formatNumber(num) {
+      if (num >= 1e9) return num.toExponential(2);
+      return num.toLocaleString(undefined, {maximumFractionDigits: 2});
     }
 
     function calculateVP() {
@@ -87,13 +87,17 @@
       const multiplier = currentBase / baseWithoutMultiplier;
       const nextBase = multiplier * (baseWithoutMultiplier + 1);
 
-      const vp = Math.pow(nextBase, mineralLevel - 1) / 100;
-      const formattedVP = formatVP(vp);
+      const currentVP = Math.pow(currentBase, mineralLevel - 1) / 100;
+      const nextVP = Math.pow(nextBase, mineralLevel - 1) / 100;
+
+      const vpGain = nextVP / currentVP;
 
       document.getElementById('output').innerHTML =
         `Next Base: ${nextBase.toFixed(2)}<br>` +
         `Multiplier: ${multiplier.toFixed(2)}<br>` +
-        `VP (before multipliers): ${formattedVP}`;
+        `Current VP (before multipliers): ${formatNumber(currentVP)}<br>` +
+        `Next VP (before multipliers): ${formatNumber(nextVP)}<br>` +
+        `VP Gain: x${formatNumber(vpGain)}`;
     }
 
     const inputs = document.querySelectorAll('#currentBase, #n1Level, #mineralLevel');
