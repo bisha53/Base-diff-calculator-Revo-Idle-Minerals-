@@ -83,13 +83,20 @@
   <script>
     function calculateVP() {
       const currentBase = Number(document.getElementById('currentBase').value);
-      const n1LevelInput = Number(document.getElementById('n1Level').value);
+      const level = Number(document.getElementById('n1Level').value);
       const mineralLevel = Number(document.getElementById('mineralLevel').value);
-      const newN1Level = (currentBase / n1LevelInput) * (n1LevelInput + 1);
-      const vp = Math.pow(newN1Level, mineralLevel);
+
+      if (level === 0) {
+        document.getElementById('output').innerHTML = 'Next Base: undefined<br>VP (before multipliers): 0';
+        return;
+      }
+
+      const nextBase = (currentBase / level) * (level + 1);
+      const vp = Math.pow(nextBase, mineralLevel);
       const formattedVP = vp.toExponential(2);
+
       document.getElementById('output').innerHTML = 
-        `N1 Level: ${newN1Level.toFixed(2)}<br>VP (before multipliers): ${formattedVP}`;
+        `Next Base: ${nextBase.toFixed(2)}<br>VP (before multipliers): ${formattedVP}`;
     }
   </script>
 </body>
