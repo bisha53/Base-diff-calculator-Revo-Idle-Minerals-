@@ -68,8 +68,8 @@
       <th>Mineral Level</th>
     </tr>
     <tr>
-      <td><input type="number" id="currentBase" value="3"></td>
-      <td><input type="number" id="n1Level" value="1"></td>
+      <td><input type="number" id="currentBase" value="20"></td>
+      <td><input type="number" id="n1Level" value="7"></td>
       <td><input type="number" id="mineralLevel" value="1"></td>
     </tr>
   </table>
@@ -86,10 +86,9 @@
       const n1Level = Number(document.getElementById('n1Level').value);
       const mineralLevel = Number(document.getElementById('mineralLevel').value);
 
-      const baseIncrease = currentBase + n1Level;
-      const nextBase = baseIncrease; 
-      const multiplier = nextBase / baseIncrease;
-
+      const baseWithoutMultiplier = 3 + n1Level;
+      const multiplier = currentBase / baseWithoutMultiplier;
+      const nextBase = baseWithoutMultiplier * multiplier;
       const vp = Math.pow(nextBase, mineralLevel);
       const formattedVP = vp.toExponential(2);
 
