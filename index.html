@@ -53,6 +53,7 @@
   </style>
 </head>
 <body>
+
   <h1>N1 Calculator</h1>
 
   <table>
@@ -73,9 +74,14 @@
   <div class="footer">bisha53</div>
 
   <script>
-    function formatNumber(num) {
-      if (num >= 1e9) return num.toExponential(2);
-      return num.toLocaleString(undefined, {maximumFractionDigits: 2});
+    function formatFromLog10(log10Value) {
+      if (!isFinite(log10Value)) return "∞";
+      if (log10Value < 6) {
+        return (Math.pow(10, log10Value)).toFixed(2);
+      }
+      const exponent = Math.floor(log10Value);
+      const mantissa = Math.pow(10, log10Value - exponent);
+      return `${mantissa.toFixed(2)} × 10^${exponent}`;
     }
 
     function calculateVP() {
@@ -87,17 +93,20 @@
       const multiplier = currentBase / baseWithoutMultiplier;
       const nextBase = multiplier * (baseWithoutMultiplier + 1);
 
-      const currentVP = Math.pow(currentBase, mineralLevel - 1) / 100;
-      const nextVP = Math.pow(nextBase, mineralLevel - 1) / 100;
+      const currentVP_log10 =
+        (mineralLevel - 1) * Math.log10(currentBase) - 2;
 
-      const vpGain = nextVP / currentVP;
+      const nextVP_log10 =
+        (mineralLevel - 1) * Math.log10(nextBase) - 2;
+
+      const vpGain_log10 = nextVP_log10 - currentVP_log10;
 
       document.getElementById('output').innerHTML =
         `Next Base: ${nextBase.toFixed(2)}<br>` +
         `Multiplier: ${multiplier.toFixed(2)}<br>` +
-        `Current VP (before multipliers): ${formatNumber(currentVP)}<br>` +
-        `Next VP (before multipliers): ${formatNumber(nextVP)}<br>` +
-        `VP Gain: x${formatNumber(vpGain)}`;
+        `Current VP (before multipliers): ${formatFromLog10(currentVP_log10)}<br>` +
+        `Next VP (before multipliers): ${formatFromLog10(nextVP_log10)}<br>` +
+        `VP Gain: ×${formatFromLog10(vpGain_log10)}`;
     }
 
     const inputs = document.querySelectorAll('#currentBase, #n1Level, #mineralLevel');
@@ -105,5 +114,6 @@
 
     calculateVP();
   </script>
+
 </body>
 </html>
