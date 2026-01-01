@@ -77,11 +77,11 @@
     function formatFromLog10(log10Value) {
       if (!isFinite(log10Value)) return "∞";
       if (log10Value < 6) {
-        return (Math.pow(10, log10Value)).toFixed(2);
+        return Math.pow(10, log10Value).toFixed(2);
       }
       const exponent = Math.floor(log10Value);
       const mantissa = Math.pow(10, log10Value - exponent);
-      return `${mantissa.toFixed(2)} × 10^${exponent}`;
+      return `${mantissa.toFixed(2)}e${exponent}`;
     }
 
     function calculateVP() {
